@@ -13,7 +13,7 @@ This will involve
 JSON (or **J**ava**S**cript **O**bject **N**otation) was created for use in web development.
 The goal was to create a simple text-format to transmit and store complex data. 
 
-For instance, imagine you want to store data for a classroom. What would you need to store?
+For instance, imagine you want to store data for a school classroom. What would you want to store?
 - Classroom description (class name, teacher, location, class times, etc.)
 - A list of students
   - You will need to store each student's name, age, grade, etc.
@@ -231,3 +231,4 @@ our code should be able to catch these errors and relay them back to the user.
 Now that we can build JSON memory models, we need a way to interact with the model.
 
 Here we can use fancy operator overloading and clever designs to create an easy-to-use API.
+

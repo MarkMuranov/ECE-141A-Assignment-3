@@ -1,0 +1,27 @@
+//
+// Created by Mark Muranov on 1/23/24.
+//
+
+#pragma once
+
+#if defined (_DEBUG) || ! (defined (NDEBUG) || defined (_NDEBUG))
+    #define DEBUG 1
+#endif
+
+#if defined (_MSC_VER)
+  #define MSVC 1
+#endif
+
+#if DEBUG
+    #ifdef MSVC // Microsoft Visual Studio
+        #define ASSERT(x) if (!(x)) __debugbreak()
+    #else // Everything else
+        #include <cassert>
+        #define ASSERT(x) assert(x)
+    #endif
+
+    #define DBG(x) std::cout << x << "\n"
+#else
+    #define ASSERT(x)
+    #define DBG(x)
+#endif
