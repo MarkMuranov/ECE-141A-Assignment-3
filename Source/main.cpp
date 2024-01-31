@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Result.h"
+#include "JSONParser.h"
 
 int main(int argc, const char* argv[]) {
     {
@@ -17,6 +18,8 @@ int main(int argc, const char* argv[]) {
         std::cout << "Value of result1: " << theResult1.unwrapOr("yay!") << "\n";
         std::cout << "Value of result2: " << theResult2.unwrapOr("yay!") << "\n";
     }
+
+    ECE141::JSONParser parser(std::cin);
 
     return 0;
 }

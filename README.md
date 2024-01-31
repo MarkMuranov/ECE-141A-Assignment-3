@@ -232,3 +232,16 @@ Now that we can build JSON memory models, we need a way to interact with the mod
 
 Here we can use fancy operator overloading and clever designs to create an easy-to-use API.
 
+## 4. Command Line Interface (CLI)
+
+Lastly, lets build our CLI
+
+## 5. Tests
+
+Just like the previous two assignments, it is very important to write some tests.
+
+## What to Submit
+
+
+
+## Grading
