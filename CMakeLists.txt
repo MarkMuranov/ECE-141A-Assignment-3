@@ -7,13 +7,13 @@ set(CMAKE_CXX_STANDARD 17)
 FILE(GLOB MY_SOURCES Source/**)
 
 # Create executable
-add_executable(Assignment_2 ${MY_SOURCES})
+add_executable(Assignment_3 ${MY_SOURCES})
 
 # Set warning level
 if (MSVC)
-    target_compile_options(Assignment_2 PRIVATE /W4)
+    target_compile_options(Assignment_3 PRIVATE /W4)
 else()
-    target_compile_options(Assignment_2 PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(Assignment_3 PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 # Maintain folder structure in IDEs
