@@ -1,25 +1,18 @@
 #include <iostream>
-#include "Result.h"
+#include <fstream>
 #include "JSONParser.h"
+#include "Model.h"
+
+static const std::string getTestFolderPath() {
+    return std::string("Resources");
+}
 
 int main(int argc, const char* argv[]) {
-    {
-        auto theResult1 = ECE141::Result<int>::newOk(4);
-        auto theResult2 = ECE141::Result<int>::newError("Uh oh!");
-
-        std::cout << "Value of result1: " << theResult1.unwrapOr(20) << "\n";
-        std::cout << "Value of result2: " << theResult2.unwrapOr(20) << "\n";
-    }
-
-    {
-        auto theResult1 = ECE141::Result<std::string>::newOk("my value");
-        auto theResult2 = ECE141::Result<std::string>::newError("Uh oh!");
-
-        std::cout << "Value of result1: " << theResult1.unwrapOr("yay!") << "\n";
-        std::cout << "Value of result2: " << theResult2.unwrapOr("yay!") << "\n";
-    }
-
-    ECE141::JSONParser parser(std::cin);
+    //std::fstream theJSONFile(getTestFolderPath() + "/classroom.json");
+    std::fstream theJSONFile("Resources/classroom.json");
+    ECE141::JSONParser parser(theJSONFile);
+    ECE141::Model theModel;
+    parser.parse(&theModel);
 
     return 0;
 }

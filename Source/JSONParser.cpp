@@ -7,14 +7,15 @@
 
 #include "JSONParser.h"
 #include <cctype>
-#include <vector>
-#include <algorithm>
 #include <stdexcept>
+#include <cstring>
 
 namespace ECE141 {
 
 	using Actions = bool (JSONParser::*)(char aChar, JSONState &aState, JSONListener *);
 	using parseCallback = bool(char aChar);
+
+	// ---Basic Parsing Utilities---
 
 	const char kColon = ':';
 	const char kComma = ',';
@@ -24,37 +25,26 @@ namespace ECE141 {
 	const char kBracketOpen = '[';
 	const char kBracketClose = ']';
 
-	JSONParser::JSONParser(std::istream &anInput) : input(anInput) {
-		anInput >> std::skipws;
-	}
-
-	//--------------- functions to handle various types of input ----------------
-
 	bool isWhitespace(char aChar) {
 		static const char *theWS = " \t\r\n\b\xff";
 		return strchr(theWS, aChar);
 	}
 
 	bool isColon(char aChar) { return kColon == aChar; }
-
 	bool isComma(char aChar) { return kComma == aChar; }
-
 	bool isQuote(char aChar) { return kQuote == aChar; }
-
 	bool isNonAlphanum(char aChar) { return !isalnum(aChar); }
-
-	//----------------- simple parsing utilities ----------------------
 
 	std::string readUntil(std::istream &anInput, parseCallback aCallback, bool addTerminal) {
 		std::string theResult;
-		while (!anInput.eof() && !(*aCallback)(anInput.peek())) {
+
+		while (!anInput.eof() && !(*aCallback)(anInput.peek()))
 			theResult += anInput.get();
-		}
-		if (addTerminal) {
-			if (!anInput.eof()) {
+
+		if (addTerminal)
+			if (!anInput.eof())
 				theResult += anInput.get();
-			}
-		}
+
 		return theResult;
 	}
 
@@ -69,24 +59,34 @@ namespace ECE141 {
 		return (aChar == anInput.peek()) && aChar == anInput.get();
 	}
 
-//--------------------------------------------------------------------
 
-	bool JSONParser::handleOpenContainer(Element aType, JSONListener *aListener) {
-		JSONState theState(tempKey, aType);
-		tempKey = "";
-		states.push(theState);
-		return (!aListener) || aListener->openContainer(theState.key, aType);
+	// ---JSONParser---
+
+	JSONParser::JSONParser(std::istream &anInput) : input(anInput) {
+		anInput >> std::skipws;
 	}
 
-	bool JSONParser::handleCloseContainer(Element aType, JSONListener *aListener) {
-		std::string temp(states.top().key);
-		if (states.size()) states.pop();
-		return (!aListener) || aListener->closeContainer(temp, aType);
+	bool JSONParser::parse(JSONListener *aListener) {
+		if (willParse(aListener)) {
+			bool isValid = true;
+			while (isValid) {
+				skipWhile(input, isWhitespace);
+				if (!input.eof()) {
+					char theChar = input.get();
+					isValid = parseElements(theChar, aListener);
+				}
+				else
+					isValid = false;
+			}
+
+			return didParse(isValid);
+		}
+		return true;
 	}
 
-//--------------------------------------------------------------------
-
-	bool JSONParser::didParse(bool aState) { return aState; }
+	bool JSONParser::didParse(bool aState) {
+		return aState;
+	}
 
 	bool JSONParser::willParse(JSONListener *aListener) {
 		input >> std::skipws;
@@ -96,7 +96,23 @@ namespace ECE141 {
 		return false;
 	}
 
-	//---- determine next in the json stream ------
+
+	bool JSONParser::handleOpenContainer(Element aType, JSONListener *aListener) {
+		const JSONState theState(tempKey, aType);
+		tempKey = "";
+		states.push(theState);
+		return (!aListener) || aListener->openContainer(theState.key, aType);
+	}
+
+	bool JSONParser::handleCloseContainer(Element aType, JSONListener *aListener) {
+		tempKey = "";
+		const std::string theKey(states.top().key);
+		if (!states.empty())
+			states.pop();
+
+		return (!aListener) || aListener->closeContainer(theKey, aType);
+	}
+
 
 	Element determineType(char aChar) {
 		const char *kConstantChars = "01234567890tfn";
@@ -113,11 +129,9 @@ namespace ECE141 {
 			default:
 				return strchr(kConstantChars, aChar) ? Element::constant : Element::unknown;
 		}
-		return Element::unknown;
 	}
 
-	//--- handle the goo inside our container ------------------
-
+	// Parse all possible elements
 	bool JSONParser::parseElements(char aChar, JSONListener *aListener) {
 		bool theResult = true;
 
@@ -178,21 +192,4 @@ namespace ECE141 {
 		return theResult;
 	}
 
-	bool JSONParser::parse(JSONListener *aListener) {
-		if (willParse(aListener)) {
-			bool isValid = true;
-			while (isValid) {
-				skipWhile(input, isWhitespace);
-				if (!input.eof()) {
-					char theChar = input.get();
-					isValid = parseElements(theChar, aListener);
-				}
-				else
-					isValid = false;
-			}
-
-			return didParse(isValid);
-		}
-		return true;
-	}
-}
+} // namespace ECE141

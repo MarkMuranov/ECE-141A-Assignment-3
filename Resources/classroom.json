@@ -3,8 +3,11 @@
   "teacher": "Mr. Farber",
   "startTime": "10:00am",
   "endTime": "11:00am",
-  "roomNumber": 247,
   "hasFinalExam": true,
+  "location": {
+    "roomNumber": 247,
+    "floor": 2
+  },
   "students": [
     {
       "name": "Micheal",

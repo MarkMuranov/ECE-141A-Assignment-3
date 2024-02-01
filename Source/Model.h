@@ -5,29 +5,21 @@
 //  Created by rick gessner on 2/15/20.
 //
 
-#ifndef Model_hpp
-#define Model_hpp
+#pragma once
 
-#include <cstdio>
 #include <string>
-#include <vector>
-#include <optional>
-#include <variant>
-
 #include "JSONParser.h"
-
 
 namespace ECE141 {
 
-	class ModelQuery; //forward declare
+	class ModelQuery; // Forward declare
 
-	//STUDENT: Your Model is built from a bunch of these...
+	// STUDENT: Your Model is built from a bunch of these...
 	class ModelNode {
-	public:
-		//sometimes a node holds a simple value.
-		//sometimes a node is named
-		//sometimes a node holds a collection of elements (or even other nodes)
-		//would subclasses help or hurt here?
+		// Sometimes a node holds a basic value (null, bool, number, string)
+		// Sometimes a node holds a list of other nodes (list)
+		// Sometimes a node holds a collection key-value pairs, where the value is a node (an object)
+
 	};
 
 	class Model : public JSONListener {
@@ -59,7 +51,6 @@ namespace ECE141 {
 
 	class ModelQuery {
 	public:
-
 		ModelQuery &all(const std::string& aTarget);
 
 		ModelQuery &first(const std::string& aTarget);
@@ -92,6 +83,4 @@ namespace ECE141 {
 	};
 
 
-}
-
-#endif /* Model_hpp */
+} // namespace ECE141

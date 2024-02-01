@@ -79,26 +79,26 @@ namespace ECE141 {
 
 	bool Model::addKeyValuePair(const std::string &aKey, const std::string &aValue, Element aType) {
 		// Print statement for debugging, remove after implementation
-		std::cout << "\t'" << aKey << "' : '" << aValue << "' \taddKeyValuePair()\n";
+		std::cout << "\t'" << aKey << "' : '" << aValue << "'\n";
 		return true;
 	}
 
 	bool Model::addItem(const std::string &aValue, Element aType) {
 		// Print statement for debugging, remove after implementation
-		std::cout << "\t'" << aValue << "' \taddItem()\n";
+		std::cout << "\t'" << aValue << "'\n";
 		return true;
 	}
 
 	bool Model::openContainer(const std::string &aContainerName, ECE141::Element aType) {
 		// Print statement for debugging, remove after implementation
 		//open a new unnamed container in our model...
-		std::cout << aContainerName << " { \topenContainer()\n";
+		std::cout << (aContainerName.empty() ? "EMPTY" : aContainerName) << " " << (aType == Element::object ? "{" : "[") << "\n";
 		return true;
 	}
 
 	bool Model::closeContainer(const std::string &aContainerName, ECE141::Element aType) {
 		// Print statement for debugging, remove after implementation
-		std::cout << " } \tcloseContainer()\n";
+		std::cout << " " << (aType == Element::object ? "}" : "]") << "\n";
 		return true;
 	}
 

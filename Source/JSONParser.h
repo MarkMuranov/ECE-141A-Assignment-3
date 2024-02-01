@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include <cstdio>
-#include <cstring>
 #include <iostream>
 #include <stack>
 
@@ -24,10 +22,10 @@ namespace ECE141 {
 		// Remember, all virtual objects need a virtual destructor
 		virtual ~JSONListener() = default;
 
-		// Used to add basic key-value data types (bool, number, or string)
+		// Add basic key-value data types (bool, number, or string)
 		virtual bool addKeyValuePair(const std::string& aKey, const std::string& aValue, Element aType) = 0;
 
-		// Used to add values to a list
+		// Add values to a list
 		virtual bool addItem(const std::string& aValue, Element aType) = 0;
 
 		// Start of an object or list container ('{' or '[')
@@ -39,6 +37,7 @@ namespace ECE141 {
 	};
 
 	//--------------------------------------------
+	// Used for parsing to keep track of state
 	struct JSONState {
 		JSONState(const std::string& aKey, Element aType = Element::object) : key(aKey), type(aType) {}
 
@@ -55,10 +54,10 @@ namespace ECE141 {
 		JSONParser(std::istream &anInputStream);
 
 		bool parse(JSONListener *aListener = nullptr);
-		bool didParse(bool aStatus);
 
 	protected:
 		bool willParse(JSONListener *aListener = nullptr);
+		bool didParse(bool aStatus);
 
 		bool parseElements(char aChar, JSONListener *aListener);
 
