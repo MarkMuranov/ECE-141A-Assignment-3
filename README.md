@@ -264,7 +264,19 @@ Same rules apply for the arguments as for the `openContainer()` method.
 
 Now that we can build JSON memory models, we need a way to interact with the model.
 
-Here we can use fancy operator overloading and clever designs to create an easy-to-use API.
+### Traversal
+
+- `goto()`: Traverse the JSON tree. Ex: `goto(firstNode.secondNode.5)`.
+
+### Filtering
+
+- `select(query)`: Filter certain nodes in the branch (useful for the `count()` or `sum()` consumable).
+
+### Consuming
+
+- `count()`: Counts elements in the branch
+- `sum()`: Sum values in a list
+- `get(key or index)`: Get values of a certain key-value pair or value at index of a list.
 
 
 ## 4. Tests
