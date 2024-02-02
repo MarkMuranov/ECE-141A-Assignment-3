@@ -266,32 +266,56 @@ Now that we can build JSON memory models, we need a way to interact with the mod
 
 ### Traversal
 
-- `goto()`: Traverse the JSON tree. Ex: `goto(firstNode.secondNode.5)`.
+Used to navigate between nodes in the JSON structure.
+
+`goto(query: string)`: Traverse the JSON tree.
+
+- The `query` is a string that contains a series of keys (for key-value pairs within objects) or indices (for elements in a list).
+  - The indices start counting from `0`, just like indexing an array in C++.
+  - You can assume that an index will only be used if querying a list.
+- Think of this command as moving some sort of pointer that points to a JSON element/node.
+- Ex: `goto("firstNode.secondNode.5")`. This will navigate to the element with `"firstNode"` as the key, then the child that has the key of `"secondNode"` and lastly, the child that has the index of `5`, as `"secondNode"` contains a list.
 
 ### Filtering
 
-- `filter(query)`: Filter certain nodes in the branch (useful for the `count()` or `sum()` consumable).
+Used to 'skip' or 'ignore' certain JSON elements.
+
+`filter(query: string)`: Filter certain elements in the current scope.
+
+- The `query` is a string which contains some sort of comparison. This comparison can be applied to the element's key or index.
+
+Filtering by key: `filter("key {action} {value}")`.
+- Actions: `contains`
+- Ex: `filter("key contains hello")`: Will only include JSON elements where the key contains the substring `"hello"`.
+
+Filtering by index: `filter("index {comparison} {value})`
+- Comparisons: All 6 (`<`, `>`, `<=`, `>=`, `==`, `!=`) comparisons.
+- Ex: `filter("index > 2")`: Will only include JSON elements where the index is greater than 2. This only applies to elements within lists.
 
 ### Consuming
 
-- `count()`: Counts elements in the branch
-- `sum()`: Sum values in a list
-- `get(key or index)`: Get values of a certain key-value pair or value at index of a list.
+After navigating and filtering the JSON, 
+these commands will be used at the end of the command chain to actually return some data/values.
+
+- `count()`: Counts number of child elements (even nested child elements). Don't forget to apply the filter!
+- `sum()`: Sum values in a list. This will only be used in lists of numbers.
+- `get(key or index)`: Get values of a certain key-value pair or value at index of a list. 
+If the value is a list/object, be sure to return all the elements (view examples below).
 
 ### Example:
 
 ```json
 {
-  "sammy" : {
-    "username" : "SammyShark",
-    "online" : true,
-    "followers" : {
-      "count" : 100,
-      "avg-age" : 25
+  "sammy": {
+    "username": "SammyShark",
+    "online": true,
+    "followers": {
+      "count": 100,
+      "avg-age": 25
     }
   },
   "items": [
-    {"key1" : "100"}
+    {"key1": "100"}
   ],
   "list": [
     100, 250, 3000
@@ -299,11 +323,15 @@ Now that we can build JSON memory models, we need a way to interact with the mod
 }
 ```
 
-- `goto(list).sum()`: Should result in `3350`.
+- `goto("list").sum()`: Should result in `3350`.
 
-- `goto(sammy).count()`: There are three nodes within the `"sammy"` object, this should return `3`.
+- `goto("list").filter("index >= 1").sum()`: Should skip the value at index `0` and result in `3250`.
 
-- `goto(sammy.followers).get(count)`: Should return `100`.
+- `goto("sammy").count()`: There are five nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`, `"followers.count"`, `"followers.avg-age"`), this should return `5`.
+
+- `goto("sammy.followers").get("count")`: Should return `100`.
+
+- `goto("items").get(0)`: Should return `"{"key1":"100"}`.
 
 
 ## 4. Tests
