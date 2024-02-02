@@ -268,13 +268,13 @@ Now that we can build JSON memory models, we need a way to interact with the mod
 
 Used to navigate between nodes in the JSON structure.
 
-#### `goto(query: string)`: Traverse the JSON tree.
+#### `select(query: string)`: Traverse the JSON tree.
 
 - The `query` is a string that contains a series of keys (for key-value pairs within objects) or indices (for elements in a list).
   - The indices start counting from `0`, just like indexing an array in C++.
   - You can assume that an index will only be used if querying a list.
 - Think of this command as moving some sort of pointer that points to a JSON element/node.
-- Ex: `goto("firstNode.secondNode.5")`. This will navigate to the element with `"firstNode"` as the key, then the child that has the key of `"secondNode"` and lastly, the child that has the index of `5`, as `"secondNode"` contains a list.
+- Ex: `select("firstNode.secondNode.5")`. This will navigate to the element with `"firstNode"` as the key, then the child that has the key of `"secondNode"` and lastly, the child that has the index of `5`, as `"secondNode"` contains a list.
 
 ### Filtering
 
@@ -323,15 +323,15 @@ If the value is a list/object, be sure to return all the elements (view examples
 }
 ```
 
-- `goto("list").sum()`: Should result in `3350`.
+- `select("list").sum()`: Should result in `3350`.
 
-- `goto("list").filter("index >= 1").sum()`: Should skip the value at index `0` and result in `3250`.
+- `select("list").filter("index >= 1").sum()`: Should skip the value at index `0` and result in `3250`.
 
-- `goto("sammy").count()`: There are five nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`, `"followers.count"`, `"followers.avg-age"`), this should return `5`.
+- `select("sammy").count()`: There are five nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`, `"followers.count"`, `"followers.avg-age"`), this should return `5`.
 
-- `goto("sammy.followers").get("count")`: Should return `100`.
+- `select("sammy.followers").get("count")`: Should return `100`.
 
-- `goto("items").get(0)`: Should return `{"key1":"100"}`.
+- `select("items").get(0)`: Should return `{"key1":"100"}`.
 
 
 ## 4. Tests

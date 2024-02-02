@@ -8,6 +8,8 @@
 #pragma once
 
 #include <string>
+#include <optional>
+#include <variant>
 #include "JSONParser.h"
 
 namespace ECE141 {
@@ -43,43 +45,27 @@ namespace ECE141 {
 
 	};
 
-	// This is what gets returned when you query a model for a list of elements
-	class ModelCollection {
-	public:
-		//STUDENT: choose an STL container to hold ModelNode* elements from your Model after a query...
-	};
-
 	class ModelQuery {
 	public:
-		ModelQuery &all(const std::string& aTarget);
-
-		ModelQuery &first(const std::string& aTarget);
-
-		ModelQuery &last(const std::string& aTarget);
-
-		ModelQuery &nth(const std::string& aTarget, size_t anIndex);
-
-		ModelQuery &before(const std::string& aTarget);
-
-		ModelQuery &after(const std::string& aTarget);
-
-		ModelQuery &within(const std::string& aTarget);
-
-		size_t count();
-
-		double sum(const std::string& aField);
-
-		double avg(const std::string& aField);
-
-		ModelCollection* get();
-
-		std::string get(const std::string& aKey); // return value or empty string
-
 		ModelQuery(Model& aModel);
 
-		friend class Model;
+		// ---Traversal---
+		ModelQuery& select();
 
+		// ---Filtering---
+		enum class FilterType { key, index };
+		enum class FilterAction { includes, equal, notEqual, greaterThan, greaterThanEqual, lessThan, lessThanEqual };
+
+		ModelQuery& filter(FilterType aFilterType, FilterAction aFilterAction, std::variant<size_t, std::string> aKeyOrIndex);
+
+		// ---Consuming---
+		size_t count();
+		double sum();
+		std::optional<std::string> get(std::variant<size_t, std::string> aKeyOrIndex);
+
+	protected:
 		Model &model;
+
 	};
 
 
