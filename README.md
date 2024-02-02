@@ -268,7 +268,7 @@ Now that we can build JSON memory models, we need a way to interact with the mod
 
 Used to navigate between nodes in the JSON structure.
 
-`goto(query: string)`: Traverse the JSON tree.
+#### `goto(query: string)`: Traverse the JSON tree.
 
 - The `query` is a string that contains a series of keys (for key-value pairs within objects) or indices (for elements in a list).
   - The indices start counting from `0`, just like indexing an array in C++.
@@ -280,7 +280,7 @@ Used to navigate between nodes in the JSON structure.
 
 Used to 'skip' or 'ignore' certain JSON elements.
 
-`filter(query: string)`: Filter certain elements in the current scope.
+#### `filter(query: string)`: Filter certain elements in the current scope.
 
 - The `query` is a string which contains some sort of comparison. This comparison can be applied to the element's key or index.
 
@@ -331,7 +331,7 @@ If the value is a list/object, be sure to return all the elements (view examples
 
 - `goto("sammy.followers").get("count")`: Should return `100`.
 
-- `goto("items").get(0)`: Should return `"{"key1":"100"}`.
+- `goto("items").get(0)`: Should return `{"key1":"100"}`.
 
 
 ## 4. Tests
