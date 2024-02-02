@@ -270,13 +270,40 @@ Now that we can build JSON memory models, we need a way to interact with the mod
 
 ### Filtering
 
-- `select(query)`: Filter certain nodes in the branch (useful for the `count()` or `sum()` consumable).
+- `filter(query)`: Filter certain nodes in the branch (useful for the `count()` or `sum()` consumable).
 
 ### Consuming
 
 - `count()`: Counts elements in the branch
 - `sum()`: Sum values in a list
 - `get(key or index)`: Get values of a certain key-value pair or value at index of a list.
+
+### Example:
+
+```json
+{
+  "sammy" : {
+    "username" : "SammyShark",
+    "online" : true,
+    "followers" : {
+      "count" : 100,
+      "avg-age" : 25
+    }
+  },
+  "items": [
+    {"key1" : "100"}
+  ],
+  "list": [
+    100, 250, 3000
+  ]
+}
+```
+
+- `goto(list).sum()`: Should result in `3350`.
+
+- `goto(sammy).count()`: There are three nodes within the `"sammy"` object, this should return `3`.
+
+- `goto(sammy.followers).get(count)`: Should return `100`.
 
 
 ## 4. Tests
