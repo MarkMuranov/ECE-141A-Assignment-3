@@ -21,6 +21,7 @@ int runTest(const int argc, const char* argv[]) {
     const std::string theTest = argv[1];
 
     std::map<std::string, std::function<bool(const std::string&)>> theTestFunctions {
+        { "compile", [](const std::string&) { return true; } },
         { "basic", runBasicTest }
     };
 
