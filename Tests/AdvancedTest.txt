@@ -1,0 +1,2 @@
+stripe.json
+select('data'.'metadata').get('product_id') // 1

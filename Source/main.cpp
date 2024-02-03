@@ -11,9 +11,17 @@ inline std::string getWorkingDirectoryPath() {
     return ".";
 }
 
-bool runBasicTest(const std::string& aPath) {
+bool runAutograderTest(const std::string& aPath, const std::string& aTestName) {
     ECE141::AutoGrader autoGrader(aPath);
-    return autoGrader.runTest("BasicTest");
+    return autoGrader.runTest(aTestName);
+}
+
+bool runBasicTest(const std::string& aPath) {
+    return runAutograderTest(aPath, "BasicTest");
+}
+
+bool runAdvancedTest(const std::string& aPath) {
+    return runAutograderTest(aPath, "AdvancedTest");
 }
 
 int runTest(const int argc, const char* argv[]) {
@@ -22,7 +30,8 @@ int runTest(const int argc, const char* argv[]) {
 
     std::map<std::string, std::function<bool(const std::string&)>> theTestFunctions {
         { "compile", [](const std::string&) { return true; } },
-        { "basic", runBasicTest }
+        { "basic", runBasicTest },
+        { "advanced", runAdvancedTest }
     };
 
     if (theTestFunctions.count(theTest) == 0) {
