@@ -276,6 +276,8 @@ Traverse the JSON tree.
 - The `query` is a string that contains a series of keys (for key-value pairs within objects) or indices (for elements in a list).
   - The indices start counting from `0`, just like indexing an array in C++.
   - You can assume that an index will only be used if querying a list.
+  - All keys will be surrounded by single quotes `'`.
+  - All indices will **not** be surrounded by single quotes.
 - Think of this command as moving some sort of pointer that points to a JSON element/node.
 - Ex: `select("'firstNode'.'secondNode'.5")`. This will navigate to the element with `'firstNode'` as the key, then the child that has the key of `'secondNode'` and lastly, the child that has the index of `5`, as `'secondNode'` contains a list.
 
@@ -320,7 +322,7 @@ std::optional<std::string> get(const std::string& aKeyOrIndex);
 ```
 - Get values of a certain key-value pair or value at index of a list. 
 If the value is a list/object, be sure to return all the elements (view examples below).
-- Passing `"*"` as the argument
+- Passing `"*"` as the argument will return all child nodes of the currently selected node (see examples below). Don't forget to apply filters!
 
 ### Example:
 
@@ -349,9 +351,13 @@ If the value is a list/object, be sure to return all the elements (view examples
 
 - `select("'sammy'").count()`: There are three nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`), this should return `3`.
 
+- `select("'sammy'.'followers'").get("*")`: Should return `{"count":100,"avg-age":25}`.
+
 - `select("'sammy'.'followers'").get("'count'")`: Should return `100`.
 
 - `select("'items'").get("0")`: Should return `{"key1":"100"}`.
+
+- `select("'list'").filter("index < 2").get("*")`: Should return `[100, 250]`.
 
 
 ## 4. Tests
