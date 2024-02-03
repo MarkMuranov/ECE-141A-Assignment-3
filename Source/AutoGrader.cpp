@@ -66,10 +66,21 @@ namespace ECE141 {
         while (std::getline(testFile, theQuery)) {
             CommandProcessor theProcessor(aModel);
             auto theOutput = theProcessor.process(theQuery);
+
+            const auto theExpectedOutput = getExpectedOutput(theQuery);
+            std::cout << "Expected: '" << theExpectedOutput << "'\n";
             // TODO
         }
 
         return true;
+    }
+
+    std::string AutoGrader::getExpectedOutput(const std::string& aQuery) {
+        const auto theStartPosition = aQuery.find("//");
+        ASSERT(theStartPosition != std::string::npos);
+        ASSERT(aQuery.length() - theStartPosition > 3);
+
+        return aQuery.substr(theStartPosition + 3);
     }
 
 
@@ -126,10 +137,6 @@ namespace ECE141 {
         StringIterator theIterator(aQuery);
         std::optional<std::string> theOutput = std::nullopt;
 
-        //
-        std::cout << "\n---Start of process---\n";
-        std::cout << "Query: '" << aQuery << "'\n";
-
         do {
             const auto theCommandType = getCommandType(theIterator);
             if (theCommandType == CommandType::invalid) {
@@ -138,11 +145,8 @@ namespace ECE141 {
             }
 
             const auto theParameters = theIterator.extractValueFromParenthesis();
-
-            std::cout << "type: " << (int)theCommandType << ", " << theParameters;
-            std::cout << ", remaining: " << theIterator.getRemaningString() << "\n";
-
             theOutput = callCommand(theCommandType, theParameters);
+
         } while (theIterator.matchesCharacter('.'));
 
         return theOutput;
@@ -164,7 +168,7 @@ namespace ECE141 {
             break;
 
         case CommandType::filter:
-            callFilter(aParameter);
+            modelQuery.filter(aParameter);
             break;
 
         case CommandType::count:
@@ -183,9 +187,4 @@ namespace ECE141 {
         return std::nullopt;
     }
 
-    void CommandProcessor::callFilter(const std::string& aParameter)
-    {
-        //modelQuery.filter(ModelQuery::FilterType::key, );
-        // TODO
-    }
 } // ECE141

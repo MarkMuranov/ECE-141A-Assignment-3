@@ -24,6 +24,8 @@ namespace ECE141 {
 
         bool runCommands(Model& aModel);
 
+        std::string getExpectedOutput(const std::string& aQuery);
+
         std::string workingDirectory;
         std::fstream testFile, jsonFile;
 
@@ -61,8 +63,6 @@ namespace ECE141 {
 
         CommandType getCommandType(StringIterator& anIterator);
         std::optional<std::string> callCommand(CommandType aType, const std::string& aParameter);
-
-        void callFilter(const std::string& aParameter);
 
         ModelQuery modelQuery;
 

@@ -54,15 +54,12 @@ namespace ECE141 {
 		ModelQuery& select(const std::string& aQuery);
 
 		// ---Filtering---
-		enum class FilterType { key, index };
-		enum class FilterAction { includes, equal, notEqual, greaterThan, greaterThanEqual, lessThan, lessThanEqual };
-
-		ModelQuery& filter(FilterType aFilterType, FilterAction aFilterAction, std::variant<size_t, std::string> aKeyOrIndex);
+		ModelQuery& filter(const std::string& aQuery);
 
 		// ---Consuming---
 		size_t count();
 		double sum();
-		std::optional<std::string> get(std::variant<size_t, std::string> aKeyOrIndex);
+		std::optional<std::string> get(const std::string& aKeyOrIndex);
 
 	protected:
 		Model &model;

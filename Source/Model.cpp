@@ -62,31 +62,35 @@ namespace ECE141 {
 	ModelQuery::ModelQuery(Model &aModel) : model(aModel) {}
 
 	ModelQuery& ModelQuery::select(const std::string& aQuery) {
+		DBG("select(" << aQuery << ")");
 		TODO;
 
 		return *this;
 	}
 
-	ModelQuery& ModelQuery::filter(FilterType aFilterType, FilterAction aFilterAction,
-		std::variant<size_t, std::string> aKeyOrIndex) {
+	ModelQuery& ModelQuery::filter(const std::string& aQuery) {
+		DBG("filter(" << aQuery << ")");
 		TODO;
 
 		return *this;
 	}
 
 	size_t ModelQuery::count() {
+		DBG("filter()");
 		TODO;
 
 		return 0;
 	}
 
 	double ModelQuery::sum() {
+		DBG("filter()");
 		TODO;
 
 		return 0.0;
 	}
 
-	std::optional<std::string> ModelQuery::get(std::variant<size_t, std::string> aKeyOrIndex) {
+	std::optional<std::string> ModelQuery::get(const std::string& aKeyOrIndex) {
+		DBG("get(" << aKeyOrIndex << ")");
 		TODO;
 
 		return std::nullopt;
