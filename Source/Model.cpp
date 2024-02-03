@@ -76,14 +76,14 @@ namespace ECE141 {
 	}
 
 	size_t ModelQuery::count() {
-		DBG("filter()");
+		DBG("count()");
 		TODO;
 
 		return 0;
 	}
 
 	double ModelQuery::sum() {
-		DBG("filter()");
+		DBG("sum()");
 		TODO;
 
 		return 0.0;

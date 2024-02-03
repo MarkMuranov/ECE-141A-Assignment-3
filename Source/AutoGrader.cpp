@@ -5,9 +5,11 @@
 #include "AutoGrader.h"
 #include "JSONParser.h"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #define assertWithMessage(expression, message) \
-    if (!expression) { \
+    if (!(expression)) { \
         std::cerr << "[AutoGrader] " << message << "\n"; \
         return false; \
     }
@@ -65,11 +67,13 @@ namespace ECE141 {
         std::string theQuery;
         while (std::getline(testFile, theQuery)) {
             CommandProcessor theProcessor(aModel);
-            auto theOutput = theProcessor.process(theQuery);
+            const auto theOutput = theProcessor.process(theQuery).value_or("~~empty~~");
 
             const auto theExpectedOutput = getExpectedOutput(theQuery);
-            std::cout << "Expected: '" << theExpectedOutput << "'\n";
-            // TODO
+            std::cout << "Expected: '" << theExpectedOutput << "', actual: '" << theOutput << "'\n\n";
+
+            // assertWithMessage(theOutput == theExpectedOutput, "Error when processing: '" + theQuery + "'\nExpected: '"
+            //     + theExpectedOutput + "', got: '" + theOutput + "'");
         }
 
         return true;
@@ -160,6 +164,13 @@ namespace ECE141 {
         return CommandType::invalid;
     }
 
+    // Rounds a double to nearest hundredth
+    std::string doubleToString(const double aValue) {
+        std::ostringstream stream;
+        stream << std::fixed << std::setprecision(2) << aValue;
+        return stream.str();
+    }
+
     std::optional<std::string> CommandProcessor::callCommand(const CommandType aType, const std::string& aParameter) {
         switch (aType)
         {
@@ -175,7 +186,7 @@ namespace ECE141 {
             return std::to_string(modelQuery.count());
 
         case CommandType::sum:
-            return std::to_string(modelQuery.sum());
+            return doubleToString(modelQuery.sum());
 
         case CommandType::get:
             return modelQuery.get(aParameter);

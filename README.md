@@ -4,8 +4,8 @@
 Build your own JSON parser, API, and CLI! 
 This will involve
 - Parsing the JSON
-- Building a memory model of the JSON
-- Creating and using a simple command language for querying the memory model
+- Building an in-memory model of the JSON
+- Creating and using a simple command language for querying the in-memory model
 
 ## 0. What is JSON?
 
@@ -80,17 +80,17 @@ Even though this parser is built to parse JSON, the same design can be used to p
 
 To connect your code to the parser, your `Model` must inherit from `JSONListener` and implement the pure virtual methods.
 These listener methods will be called by the parser each time a new JSON element is parsed and must be added to the
-memory model.
+in-memory model.
 
 It is your responsibility to implement these methods correctly. We will go into more detail about the model in the
 next section.
 
 
-## 2. The Memory Model
+## 2. The In-Memory Model
 
 Now that we can parse JSON, we need a way to represent the extracted information in memory.
 
-### Why do we need a memory model?
+### Why do we need a in-memory model?
 
 We actually don't *need* one. We could instead perform all the queries on the raw text.
 However, parsing text is slow. 
@@ -98,9 +98,9 @@ However, parsing text is slow.
 It would be much faster if we can build our own representation of the JSON
 which the rest of our code could easily interact with!
 
-Hence, the memory model.
+Hence, the in-memory model.
 
-### How do we build our memory model?
+### How do we build our in-memory model?
 
 This is up to you. However, there is no point in reinventing the wheel, 
 so here are some structures/patterns people use to create such models.
@@ -210,7 +210,7 @@ Aaaand there we have it! We have successfully created a model/graph representati
 ### Using `JSONListener`
 
 We have already touched on the `JSONListener` and its methods, but let's delve deeper now that we better
-understand the memory model.
+understand the in-memory model.
 
 ```cpp
 // Add basic key-value data types (null, bool, number, or string)
@@ -262,45 +262,65 @@ Same rules apply for the arguments as for the `openContainer()` method.
 
 ## 3. Query Language
 
-Now that we can build JSON memory models, we need a way to interact with the model.
+Now that we can build JSON in-memory models, we need a way to interact with the model.
 
 ### Traversal
 
 Used to navigate between nodes in the JSON structure.
 
-#### `select(query: string)`: Traverse the JSON tree.
+```cpp
+ModelQuery& select(const std::string& query);
+```
+Traverse the JSON tree.
 
 - The `query` is a string that contains a series of keys (for key-value pairs within objects) or indices (for elements in a list).
   - The indices start counting from `0`, just like indexing an array in C++.
   - You can assume that an index will only be used if querying a list.
 - Think of this command as moving some sort of pointer that points to a JSON element/node.
-- Ex: `select("firstNode"."secondNode".5)`. This will navigate to the element with `"firstNode"` as the key, then the child that has the key of `"secondNode"` and lastly, the child that has the index of `5`, as `"secondNode"` contains a list.
+- Ex: `select("'firstNode'.'secondNode'.5")`. This will navigate to the element with `'firstNode'` as the key, then the child that has the key of `'secondNode'` and lastly, the child that has the index of `5`, as `'secondNode'` contains a list.
 
 ### Filtering
 
 Used to 'skip' or 'ignore' certain JSON elements.
 
-#### `filter(query: string)`: Filter certain elements in the current scope.
+```cpp
+ModelQuery& filter(const std::string& aQuery);
+```
+Filter certain elements in the current scope.
 
 - The `query` is a string which contains some sort of comparison. This comparison can be applied to the element's key or index.
 
-Filtering by key: `filter(key {action} {value})`.
+Filtering by key: `filter("key {action} {value}")`.
 - Actions: `contains`
-- Ex: `filter(key contains hello)`: Will only include JSON elements where the key contains the substring `"hello"`.
+- Ex: `filter("key contains hello")`: Will only include JSON elements where the key contains the substring `"hello"`.
 
-Filtering by index: `filter(index {comparison} {value})`
+Filtering by index: `filter("index {comparison} {value}")`
 - Comparisons: All 6 (`<`, `>`, `<=`, `>=`, `==`, `!=`) comparisons.
-- Ex: `filter(index > 2)`: Will only include JSON elements where the index is greater than 2. This only applies to elements within lists.
+- Ex: `filter("index > 2")`: Will only include JSON elements where the index is greater than 2. This only applies to elements within lists.
 
 ### Consuming
 
 After navigating and filtering the JSON, 
 these commands will be used at the end of the command chain to actually return some data/values.
 
-- `count()`: Counts number of child elements (even nested child elements). Don't forget to apply the filter!
-- `sum()`: Sum values in a list. This will only be used in lists of numbers.
-- `get(key or index)`: Get values of a certain key-value pair or value at index of a list. 
+- Notice how these methods return actual values instead of `ModelQuery&`.
+
+```cpp
+size_t count();
+```
+- Counts number of child elements of the currently selected node. Don't forget to apply the filter(s)!
+
+```cpp
+double sum();
+```
+- Sum values in a list. This will only be used in lists of numbers.
+
+```cpp
+std::optional<std::string> get(const std::string& aKeyOrIndex);
+```
+- Get values of a certain key-value pair or value at index of a list. 
 If the value is a list/object, be sure to return all the elements (view examples below).
+- Passing `"*"` as the argument
 
 ### Example:
 
@@ -323,15 +343,15 @@ If the value is a list/object, be sure to return all the elements (view examples
 }
 ```
 
-- `select("list").sum()`: Should result in `3350`.
+- `select("'list'").sum()`: Should result in `3350`.
 
-- `select("list").filter(index >= 1).sum()`: Should skip the value at index `0` and result in `3250`.
+- `select("'list'").filter("index >= 1").sum()`: Should skip the value at index `0` and result in `3250`.
 
-- `select("sammy").count()`: There are five nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`, `"followers.count"`, `"followers.avg-age"`), this should return `5`.
+- `select("'sammy'").count()`: There are three nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`), this should return `3`.
 
-- `select("sammy"."followers").get("count")`: Should return `100`.
+- `select("'sammy'.'followers'").get("'count'")`: Should return `100`.
 
-- `select("items").get(0)`: Should return `{"key1":"100"}`.
+- `select("'items'").get("0")`: Should return `{"key1":"100"}`.
 
 
 ## 4. Tests
