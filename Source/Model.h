@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Debug.h"
 #include <string>
 #include <optional>
 #include <variant>
@@ -31,7 +32,7 @@ namespace ECE141 {
 		Model(const Model &aCommand);
 		Model &operator=(const Model &aCommand);
 
-		ModelQuery query();
+		ModelQuery createQuery();
 
 	protected:
 		// JSONListener methods
@@ -50,7 +51,7 @@ namespace ECE141 {
 		ModelQuery(Model& aModel);
 
 		// ---Traversal---
-		ModelQuery& select();
+		ModelQuery& select(const std::string& aQuery);
 
 		// ---Filtering---
 		enum class FilterType { key, index };

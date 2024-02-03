@@ -274,7 +274,7 @@ Used to navigate between nodes in the JSON structure.
   - The indices start counting from `0`, just like indexing an array in C++.
   - You can assume that an index will only be used if querying a list.
 - Think of this command as moving some sort of pointer that points to a JSON element/node.
-- Ex: `select("firstNode.secondNode.5")`. This will navigate to the element with `"firstNode"` as the key, then the child that has the key of `"secondNode"` and lastly, the child that has the index of `5`, as `"secondNode"` contains a list.
+- Ex: `select("firstNode"."secondNode".5)`. This will navigate to the element with `"firstNode"` as the key, then the child that has the key of `"secondNode"` and lastly, the child that has the index of `5`, as `"secondNode"` contains a list.
 
 ### Filtering
 
@@ -284,13 +284,13 @@ Used to 'skip' or 'ignore' certain JSON elements.
 
 - The `query` is a string which contains some sort of comparison. This comparison can be applied to the element's key or index.
 
-Filtering by key: `filter("key {action} {value}")`.
+Filtering by key: `filter(key {action} {value})`.
 - Actions: `contains`
-- Ex: `filter("key contains hello")`: Will only include JSON elements where the key contains the substring `"hello"`.
+- Ex: `filter(key contains hello)`: Will only include JSON elements where the key contains the substring `"hello"`.
 
-Filtering by index: `filter("index {comparison} {value})`
+Filtering by index: `filter(index {comparison} {value})`
 - Comparisons: All 6 (`<`, `>`, `<=`, `>=`, `==`, `!=`) comparisons.
-- Ex: `filter("index > 2")`: Will only include JSON elements where the index is greater than 2. This only applies to elements within lists.
+- Ex: `filter(index > 2)`: Will only include JSON elements where the index is greater than 2. This only applies to elements within lists.
 
 ### Consuming
 
@@ -325,11 +325,11 @@ If the value is a list/object, be sure to return all the elements (view examples
 
 - `select("list").sum()`: Should result in `3350`.
 
-- `select("list").filter("index >= 1").sum()`: Should skip the value at index `0` and result in `3250`.
+- `select("list").filter(index >= 1).sum()`: Should skip the value at index `0` and result in `3250`.
 
 - `select("sammy").count()`: There are five nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`, `"followers.count"`, `"followers.avg-age"`), this should return `5`.
 
-- `select("sammy.followers").get("count")`: Should return `100`.
+- `select("sammy"."followers").get("count")`: Should return `100`.
 
 - `select("items").get(0)`: Should return `{"key1":"100"}`.
 

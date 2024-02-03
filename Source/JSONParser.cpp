@@ -71,12 +71,11 @@ namespace ECE141 {
 			bool isValid = true;
 			while (isValid) {
 				skipWhile(input, isWhitespace);
-				if (!input.eof()) {
-					char theChar = input.get();
-					isValid = parseElements(theChar, aListener);
-				}
-				else
-					isValid = false;
+				if (input.eof())
+					break;
+
+				const char theChar = input.get();
+				isValid = parseElements(theChar, aListener);
 			}
 
 			return didParse(isValid);

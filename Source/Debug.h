@@ -21,7 +21,9 @@
     #endif
 
     #define DBG(x) std::cout << x << "\n"
+    #define TODO {}
 #else
     #define ASSERT(x)
     #define DBG(x)
+    #define TODO static_assert(false);
 #endif

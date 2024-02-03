@@ -9,97 +9,87 @@
 
 namespace ECE141 {
 
-	ModelQuery::ModelQuery(Model &aModel) : model(aModel) {
-	}
-
-	ModelQuery &ModelQuery::all(const std::string &aTarget) {
-		return *this;
-	}
-
-	ModelQuery &ModelQuery::first(const std::string &aTarget) {
-		return *this;
-	}
-
-	ModelQuery &ModelQuery::last(const std::string &aTarget) {
-		return *this;
-	}
-
-	ModelQuery &ModelQuery::nth(const std::string &aTarget, size_t anIndex) {
-		return *this;
-	}
-
-	ModelQuery &ModelQuery::before(const std::string &aTarget) {
-		return *this;
-	}
-
-	ModelQuery &ModelQuery::after(const std::string &aTarget) {
-		return *this;
-	}
-
-	ModelQuery &ModelQuery::within(const std::string &aTarget) {
-		return *this;
-	}
-
-	ModelCollection *ModelQuery::get() {
-		return nullptr;
-	}
-
-	std::string ModelQuery::get(const std::string &aKey) {
-		return std::string(""); //retrieve the key from a value if query matches, otherwise return ""
-	}
-
-	size_t ModelQuery::count() {
-		return 0;
-	}
-
-	double avg(const std::string &aField) {
-		return 0.0;
-	}
-
-	double ModelQuery::sum(const std::string &aField) {
-		return 0.0;
-	}
-
-	//---------------------- implement the model class... --------------------
+	// ---Model---
 
 	Model::Model() {
+		TODO; // Remove once you have implemented this method
 	}
 
 	Model::Model(const Model &aCommand) {
+		TODO;
 	}
 
 	Model &Model::operator=(const Model &aCommand) {
+		TODO;
 		return *this;
 	}
 
-	ModelQuery Model::query() {
-		ModelQuery theQuery(*this);
-		return theQuery;
+	ModelQuery Model::createQuery() {
+		return ModelQuery(*this);
 	}
 
 	bool Model::addKeyValuePair(const std::string &aKey, const std::string &aValue, Element aType) {
+		TODO;
 		// Print statement for debugging, remove after implementation
-		std::cout << "\t'" << aKey << "' : '" << aValue << "'\n";
+		//std::cout << "\t'" << aKey << "' : '" << aValue << "'\n";
 		return true;
 	}
 
 	bool Model::addItem(const std::string &aValue, Element aType) {
+		TODO;
 		// Print statement for debugging, remove after implementation
-		std::cout << "\t'" << aValue << "'\n";
+		//std::cout << "\t'" << aValue << "'\n";
 		return true;
 	}
 
 	bool Model::openContainer(const std::string &aContainerName, ECE141::Element aType) {
+		TODO;
 		// Print statement for debugging, remove after implementation
-		//open a new unnamed container in our model...
-		std::cout << (aContainerName.empty() ? "EMPTY" : aContainerName) << " " << (aType == Element::object ? "{" : "[") << "\n";
+		//std::cout << (aContainerName.empty() ? "EMPTY" : aContainerName) << " " << (aType == Element::object ? "{" : "[") << "\n";
 		return true;
 	}
 
 	bool Model::closeContainer(const std::string &aContainerName, ECE141::Element aType) {
+		TODO;
 		// Print statement for debugging, remove after implementation
-		std::cout << " " << (aType == Element::object ? "}" : "]") << "\n";
+		//std::cout << " " << (aType == Element::object ? "}" : "]") << "\n";
 		return true;
+	}
+
+
+	// ---ModelQuery---
+
+	ModelQuery::ModelQuery(Model &aModel) : model(aModel) {}
+
+	ModelQuery& ModelQuery::select(const std::string& aQuery) {
+		TODO;
+
+		return *this;
+	}
+
+	ModelQuery& ModelQuery::filter(FilterType aFilterType, FilterAction aFilterAction,
+		std::variant<size_t, std::string> aKeyOrIndex) {
+		TODO;
+
+		return *this;
+	}
+
+	size_t ModelQuery::count() {
+		TODO;
+
+		return 0;
+	}
+
+	double ModelQuery::sum() {
+		TODO;
+
+		return 0.0;
+	}
+
+	std::optional<std::string> ModelQuery::get(std::variant<size_t, std::string> aKeyOrIndex) {
+		TODO;
+
+		return std::nullopt;
 	}
 
 } // namespace ECE141

@@ -1,0 +1,4 @@
+classroom.json
+select("location").get("roomNumber") // 247
+select("students".1).get("name") // Sarah
+select("students".1).count() // 3
