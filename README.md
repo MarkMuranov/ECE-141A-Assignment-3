@@ -292,9 +292,9 @@ Filter certain elements in the current scope.
 
 - The `query` is a string which contains some sort of comparison. This comparison can be applied to the element's key or index.
 
-Filtering by key: `filter("key {action} {value}")`.
+Filtering by key: `filter("key {action} '{value}'")`.
 - Actions: `contains`
-- Ex: `filter("key contains hello")`: Will only include JSON elements where the key contains the substring `"hello"`.
+- Ex: `filter("key contains 'hello'")`: Will only include JSON elements where the key contains the substring `"hello"`.
 
 Filtering by index: `filter("index {comparison} {value}")`
 - Comparisons: All 6 (`<`, `>`, `<=`, `>=`, `==`, `!=`) comparisons.
