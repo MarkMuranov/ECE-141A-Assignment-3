@@ -31,28 +31,28 @@ namespace ECE141 {
 	bool Model::addKeyValuePair(const std::string &aKey, const std::string &aValue, Element aType) {
 		TODO;
 		// Print statement for debugging, remove after implementation
-		//std::cout << "\t'" << aKey << "' : '" << aValue << "'\n";
+		// DBG("\t'" << aKey << "' : '" << aValue << "'");
 		return true;
 	}
 
 	bool Model::addItem(const std::string &aValue, Element aType) {
 		TODO;
 		// Print statement for debugging, remove after implementation
-		//std::cout << "\t'" << aValue << "'\n";
+		// DBG("\t'" << aValue << "'");
 		return true;
 	}
 
 	bool Model::openContainer(const std::string &aContainerName, ECE141::Element aType) {
 		TODO;
 		// Print statement for debugging, remove after implementation
-		//std::cout << (aContainerName.empty() ? "EMPTY" : aContainerName) << " " << (aType == Element::object ? "{" : "[") << "\n";
+		// DBG((aContainerName.empty() ? "EMPTY" : aContainerName) << " " << (aType == Element::object ? "{" : "["));
 		return true;
 	}
 
 	bool Model::closeContainer(const std::string &aContainerName, ECE141::Element aType) {
 		TODO;
 		// Print statement for debugging, remove after implementation
-		//std::cout << " " << (aType == Element::object ? "}" : "]") << "\n";
+		// DBG(" " << (aType == Element::object ? "}" : "]"));
 		return true;
 	}
 

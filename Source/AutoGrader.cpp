@@ -3,14 +3,16 @@
 //
 
 #include "AutoGrader.h"
+
 #include "JSONParser.h"
 #include <iostream>
+#include <algorithm>
 #include <sstream>
 #include <iomanip>
 
 #define assertWithMessage(expression, message) \
     if (!(expression)) { \
-        std::cerr << "[AutoGrader] " << message << "\n"; \
+        std::clog << "[AutoGrader] " << message << "\n"; \
         return false; \
     }
 
@@ -63,17 +65,25 @@ namespace ECE141 {
         return true;
     }
 
+    void removeWhitespace(std::string& aString) {
+        aString.erase(std::remove_if(aString.begin(), aString.end(), [](unsigned char x) {
+            return std::isspace(x);
+        }), aString.end());
+    }
+
     bool AutoGrader::runCommands(Model& aModel) {
         std::string theQuery;
         while (std::getline(testFile, theQuery)) {
             CommandProcessor theProcessor(aModel);
-            const auto theOutput = theProcessor.process(theQuery).value_or("~~empty~~");
+            auto theOutput = theProcessor.process(theQuery).value_or("~~empty~~");
+            removeWhitespace(theOutput);
 
-            const auto theExpectedOutput = getExpectedOutput(theQuery);
+            auto theExpectedOutput = getExpectedOutput(theQuery);
+            removeWhitespace(theExpectedOutput);
             std::cout << "Expected: '" << theExpectedOutput << "', actual: '" << theOutput << "'\n\n";
 
-            // assertWithMessage(theOutput == theExpectedOutput, "Error when processing: '" + theQuery + "'\nExpected: '"
-            //     + theExpectedOutput + "', got: '" + theOutput + "'");
+            assertWithMessage(theOutput == theExpectedOutput, "Error when processing: '" + theQuery +
+                "'\nExpected: '" + theExpectedOutput + "', got: '" + theOutput + "'");
         }
 
         return true;
@@ -144,7 +154,7 @@ namespace ECE141 {
         do {
             const auto theCommandType = getCommandType(theIterator);
             if (theCommandType == CommandType::invalid) {
-                std::cerr << "Invalid command type in query: '" << aQuery << "'\n";
+                std::clog << "Invalid command type in query: '" << aQuery << "'\n";
                 return std::nullopt;
             }
 
