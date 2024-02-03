@@ -82,8 +82,8 @@ namespace ECE141 {
             removeWhitespace(theExpectedOutput);
             DBG("Expected: '" << theExpectedOutput << "', got: '" << theOutput << "'\n");
 
-            // assertWithMessage(theOutput == theExpectedOutput, "Error when processing: '" + theQuery +
-            //     "'\nExpected: '" + theExpectedOutput + "', got: '" + theOutput + "'");
+            assertWithMessage(theOutput == theExpectedOutput, "Error when processing: '" + theQuery +
+                "'\nExpected: '" + theExpectedOutput + "', got: '" + theOutput + "'");
         }
 
         return true;
