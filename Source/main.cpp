@@ -3,8 +3,8 @@
 #include <functional>
 #include <map>
 #include "JSONParser.h"
-#include "Model.h"
 #include "AutoGrader.h"
+#include "Testable.h"
 
 // STUDENT: Be sure to update this path if necessary (should point to the repo directory)
 inline std::string getWorkingDirectoryPath() {
@@ -47,9 +47,6 @@ int runTest(const int argc, const char* argv[]) {
 int main(const int argc, const char* argv[]) {
     if (argc > 1)
         return runTest(argc, argv);
-
-    ECE141::AutoGrader autoGrader(getWorkingDirectoryPath());
-    autoGrader.runTest("BasicTest");
 
     return 0;
 }

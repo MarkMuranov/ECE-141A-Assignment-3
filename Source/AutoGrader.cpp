@@ -12,7 +12,7 @@
 
 #define assertWithMessage(expression, message) \
     if (!(expression)) { \
-        std::clog << "[AutoGrader] " << message << "\n"; \
+        std::cout << "[AutoGrader] " << message << "\n"; \
         return false; \
     }
 
@@ -80,9 +80,8 @@ namespace ECE141 {
 
             auto theExpectedOutput = getExpectedOutput(theQuery);
             removeWhitespace(theExpectedOutput);
-            DBG("Expected: '" << theExpectedOutput << "', got: '" << theOutput << "'\n");
 
-            assertWithMessage(theOutput == theExpectedOutput, "Error when processing: '" + theQuery +
+            assertWithMessage(theOutput == theExpectedOutput, "Test failed: '" + theQuery +
                 "'\nExpected: '" + theExpectedOutput + "', got: '" + theOutput + "'");
         }
 
