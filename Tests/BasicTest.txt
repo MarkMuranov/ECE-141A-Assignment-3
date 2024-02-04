@@ -1,5 +1,6 @@
 classroom.json
 select('location').get('roomNumber') // 247
 select('students'.1).get('name') // "Sarah"
-select('students').filter(index >= 1).count() // 2
+select('students').count() // 4
+select('students').filter(index >= 1).count() // 3
 select('students').get(10) // ~~empty~~
