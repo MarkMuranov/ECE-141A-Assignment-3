@@ -42,14 +42,14 @@ namespace ECE141 {
 		return true;
 	}
 
-	bool Model::openContainer(const std::string &aContainerName, ECE141::Element aType) {
+	bool Model::openContainer(const std::string &aContainerName, Element aType) {
 		TODO;
 		// Print statement for debugging, remove after implementation
 		// DBG((aContainerName.empty() ? "EMPTY" : aContainerName) << " " << (aType == Element::object ? "{" : "["));
 		return true;
 	}
 
-	bool Model::closeContainer(const std::string &aContainerName, ECE141::Element aType) {
+	bool Model::closeContainer(const std::string &aContainerName, Element aType) {
 		TODO;
 		// Print statement for debugging, remove after implementation
 		// DBG(" " << (aType == Element::object ? "}" : "]"));
