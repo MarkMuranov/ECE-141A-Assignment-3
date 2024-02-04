@@ -18,6 +18,43 @@
 
 namespace ECE141 {
 
+    bool runModelQueryTest(const std::string& aPath) {
+        std::fstream theJsonFile(aPath + "/Resources/classroom.json");
+        Model theModel;
+        JSONParser theParser(theJsonFile);
+        theParser.parse(&theModel);
+
+        {
+            auto theQuery = theModel.createQuery();
+            const auto theResult = theQuery.select("'location'")
+                                                 .get("'roomNumber'")
+                                                 .value_or("std::nullopt");
+            assertWithMessage(theResult == "247", "Expected '247', got: '" + theResult + "'");
+        }
+        {
+            auto theQuery = theModel.createQuery();
+            const auto theResult = theQuery.select("'students'")
+                                                 .filter("index > 1")
+                                                 .count();
+            assertWithMessage(theResult == 2, "Expected '2', got: '" + std::to_string(theResult) + "'");
+        }
+        {
+            auto theQuery = theModel.createQuery();
+            const auto theResult = theQuery.select("'students'.3")
+                                                 .get("'grade'")
+                                                 .value_or("std::nullopt");
+            assertWithMessage(theResult == "null", "Expected '2', got: '" + theResult + "'");
+        }
+        {
+            auto theQuery = theModel.createQuery();
+            const auto theResult = theQuery.select("'location'.'uh_oh'")
+                                                 .get("'nope'");
+            assertWithMessage(theResult == std::nullopt, "Expected std::nullopt, got: '" + theResult.value() + "'");
+        }
+
+        return true;
+    }
+
     // ---AutoGrader---
 
     AutoGrader::AutoGrader(const std::string& aWorkingDirectoryPath)

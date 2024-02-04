@@ -30,6 +30,7 @@ int runTest(const int argc, const char* argv[]) {
 
     std::map<std::string, std::function<bool(const std::string&)>> theTestFunctions {
         { "compile", [](const std::string&) { return true; } },
+        { "query", ECE141::runModelQueryTest },
         { "basic", runBasicTest },
         { "advanced", runAdvancedTest }
     };

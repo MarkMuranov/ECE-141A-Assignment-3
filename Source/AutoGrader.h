@@ -10,13 +10,13 @@
 #include "Model.h"
 
 namespace ECE141 {
+    bool runModelQueryTest(const std::string& aPath);
 
     class AutoGrader {
     public:
         AutoGrader(const std::string& aWorkingDirectoryPath);
 
         bool runTest(const std::string& aTestName);
-
 
     protected:
         bool openFiles(const std::string& aTestName);
@@ -56,10 +56,8 @@ namespace ECE141 {
         std::optional<std::string> process(const std::string& aQuery);
 
     protected:
-        std::array<std::string, 5> commandList{ "select", "filter", "count", "sum", "get" };
-        enum class CommandType {
-            select = 0, filter, count, sum, get, invalid
-        };
+        std::array<std::string, 5> commandList { "select", "filter", "count", "sum", "get" };
+        enum class CommandType { select = 0, filter, count, sum, get, invalid };
 
         CommandType getCommandType(StringIterator& anIterator);
         std::optional<std::string> callCommand(CommandType aType, const std::string& aParameter);
