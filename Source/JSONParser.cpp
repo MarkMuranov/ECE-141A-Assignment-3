@@ -33,7 +33,7 @@ namespace ECE141 {
 	bool isColon(char aChar) { return kColon == aChar; }
 	bool isComma(char aChar) { return kComma == aChar; }
 	bool isQuote(char aChar) { return kQuote == aChar; }
-	bool isNonAlphanum(char aChar) { return !isalnum(aChar); }
+	bool isNonAlphanum(char aChar) { return !isalnum(aChar) && aChar != '.'; }
 
 	std::string readUntil(std::istream &anInput, parseCallback aCallback, bool addTerminal) {
 		std::string theResult;
@@ -90,7 +90,7 @@ namespace ECE141 {
 	bool JSONParser::willParse(JSONListener *aListener) {
 		input >> std::skipws;
 		if (kBraceOpen == input.get()) {
-			return handleOpenContainer(Element::object, aListener); //open default container...
+			return handleOpenContainer(Element::object, aListener); // Open default container...
 		}
 		return false;
 	}
@@ -158,7 +158,7 @@ namespace ECE141 {
 
 				if (Element::object == theTop.type) {
 					if (kColon == input.peek()) {
-						input.get(); //skip it...
+						input.get(); // Skip it...
 						tempKey = theValue;
 					}
 					else {
