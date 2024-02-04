@@ -12,7 +12,7 @@
 
 #define assertWithMessage(expression, message) \
     if (!(expression)) { \
-        std::cout << "[AutoGrader] " << message << "\n"; \
+        std::cout << "\n[AutoGrader] " << message << "\n"; \
         return false; \
     }
 

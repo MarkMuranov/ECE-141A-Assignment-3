@@ -1,5 +1,5 @@
 stripe.json
-select('data'.'object'.'metadata').get('product_id') // 1
+select('data'.'object'.'metadata').get('product_id') // "1"
 select('data'.'object'.'metadata').count() // 4
 select('data'.'object'.'metadata').filter(key contains 'user').count() // 3
 select('data'.'object'.'metadata').filter(key contains 'id').count() // 2
