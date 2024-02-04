@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <iostream>
+
 #if defined (_DEBUG) || ! (defined (NDEBUG) || defined (_NDEBUG))
     #define DEBUG 1
 #endif
