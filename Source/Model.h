@@ -29,8 +29,8 @@ namespace ECE141 {
 	public:
 		Model();
 		~Model() override = default;
-		Model(const Model &aCommand);
-		Model &operator=(const Model &aCommand);
+		Model(const Model &aModel);
+		Model &operator=(const Model &aModel);
 
 		ModelQuery createQuery();
 

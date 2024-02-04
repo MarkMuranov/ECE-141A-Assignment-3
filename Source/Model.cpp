@@ -15,11 +15,11 @@ namespace ECE141 {
 		TODO; // Remove once you have implemented this method
 	}
 
-	Model::Model(const Model &aCommand) {
+	Model::Model(const Model &aModel) {
 		TODO;
 	}
 
-	Model &Model::operator=(const Model &aCommand) {
+	Model &Model::operator=(const Model &aModel) {
 		TODO;
 		return *this;
 	}
