@@ -394,7 +394,7 @@ ECE141::Model theModel;
 theParser.parse(&theModel);
 
 // Query the model...
-auto& theQuery = theModel.createQuery();
+auto theQuery = theModel.createQuery();
 auto theResult = theQuery.select("'sammy'").get("'username'");
 ```
 
