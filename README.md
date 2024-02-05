@@ -351,8 +351,8 @@ If the value is a list/object, be sure to return all the elements (view examples
     "username": "SammyShark",
     "online": true,
     "followers": {
-      "count": 100,
-      "avg-age": 25
+      "avg-age": 25,
+      "count": 100
     }
   },
   "items": [
@@ -372,9 +372,9 @@ If the value is a list/object, be sure to return all the elements (view examples
 
 - `select("'list'").filter("index >= 1").sum()`: Should skip the value at index `0` and result in `3250`.
 
-- `select("'sammy'").count()`: There are three nodes within the `"sammy"` object (`"username"`, `"online"`, `"followers"`), this should return `3`.
+- `select("'sammy'").count()`: There are four elements within the `"sammy"` object (`"name"`,`"username"`, `"online"`, `"followers"`), this should return `4`.
 
-- `select("'sammy'.'followers'").get("*")`: Should return `{"count":100,"avg-age":25}`.
+- `select("'sammy'.'followers'").get("*")`: Should return `{"avg-age":25,"count":100}`.
 
 - `select("'sammy'.'followers'").get("'count'")`: Should return `100`.
 

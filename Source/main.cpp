@@ -9,20 +9,25 @@
 
 // STUDENT: Be sure to update this path if necessary (should point to the repo directory)
 inline std::string getWorkingDirectoryPath() {
+    //return "C:/UCSD/ECE 141A/Assignments/pa3-json-processor-YourName";
     return ".";
 }
 
-bool runAutograderTest(const std::string& aPath, const std::string& aTestName) {
+bool runAutoGraderTest(const std::string& aPath, const std::string& aTestName) {
     ECE141::AutoGrader autoGrader(aPath);
     return autoGrader.runTest(aTestName);
 }
 
+bool runNoFilterTest(const std::string& aPath) {
+    return runAutoGraderTest(aPath, "NoFilterTest");
+}
+
 bool runBasicTest(const std::string& aPath) {
-    return runAutograderTest(aPath, "BasicTest");
+    return runAutoGraderTest(aPath, "BasicTest");
 }
 
 bool runAdvancedTest(const std::string& aPath) {
-    return runAutograderTest(aPath, "AdvancedTest");
+    return runAutoGraderTest(aPath, "AdvancedTest");
 }
 
 int runTest(const int argc, const char* argv[]) {
@@ -31,6 +36,7 @@ int runTest(const int argc, const char* argv[]) {
 
     std::map<std::string, std::function<bool(const std::string&)>> theTestFunctions {
         { "compile", [](const std::string&) { return true; } },
+        { "nofilter", runNoFilterTest },
         { "query", ECE141::runModelQueryTest },
         { "basic", runBasicTest },
         { "advanced", runAdvancedTest }
