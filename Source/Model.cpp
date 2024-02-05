@@ -1,8 +1,5 @@
 //
-//  Model.cpp
-//  Assignment4
-//
-//  Created by rick gessner on 2/15/20.
+// Created by Mark on 1/30/2024.
 //
 
 #include "Model.h"
@@ -16,11 +13,11 @@ namespace ECE141 {
 		TODO; // Remove once you have implemented this method
 	}
 
-	Model::Model(const Model &aModel) {
+	Model::Model(const Model& aModel) {
 		TODO;
 	}
 
-	Model &Model::operator=(const Model &aModel) {
+	Model &Model::operator=(const Model& aModel) {
 		TODO;
 		return *this;
 	}

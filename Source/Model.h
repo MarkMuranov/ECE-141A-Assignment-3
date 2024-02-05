@@ -1,8 +1,5 @@
 //
-//  Model.h
-//  Assignment4
-//
-//  Created by rick gessner on 2/15/20.
+// Created by Mark on 1/30/2024.
 //
 
 #pragma once
@@ -27,8 +24,8 @@ namespace ECE141 {
 	public:
 		Model();
 		~Model() override = default;
-		Model(const Model &aModel);
-		Model &operator=(const Model &aModel);
+		Model(const Model& aModel);
+		Model &operator=(const Model& aModel);
 
 		ModelQuery createQuery();
 
