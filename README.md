@@ -70,7 +70,7 @@ Important things to notice:
 
 - A **value** can be 6 different types: `null`, `boolean`, `number`, `string`, `list`, or `object`
   - This means that `object`s and `list`s can store additional `object`s and `list`s within themselves!
-  - Notice the `number` type. In Javascript, `number` can represent both integer and floating-point types. 
+  - Notice the `number` type. In JavaScript, `number` can represent both integer and floating-point types. 
     - In C++, we can separate this `number` type into distinct `long` and `double` types to correctly store the values.
 - For a more detailed and formal description, check out [json.org](https://www.json.org/json-en.html).
 
