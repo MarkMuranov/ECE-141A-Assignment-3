@@ -1,5 +1,6 @@
 sammy.json
 select('sammy').get('name') // "Sammy"
+select('sammy').get('online') // true
 select('sammy'.'followers').get('avg-age') // 25
 select('sammy').count() // 4
 select('sammy'.'uh_oh').get('nope') // ~~empty~~
