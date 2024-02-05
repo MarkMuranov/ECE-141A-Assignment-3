@@ -74,7 +74,7 @@ Important things to notice:
     - In C++, we can separate this `number` type into distinct `long` and `double` types to correctly store the values.
 - For a more detailed and formal description, check out [json.org](https://www.json.org/json-en.html).
 
-We have addition JSON examples in this repository, feel free to look through them to better familiarize yourself with the syntax.
+We have addition JSON examples in this repository (in `Resources`), feel free to look through them to better familiarize yourself with the syntax.
 
 ## 1. The Parser
 
@@ -94,7 +94,7 @@ These listener methods will be called by the parser each time a new JSON element
 It is your responsibility to implement these methods correctly. We will go into more detail about `Model` and the `JSONListener` methods in the
 next section.
 
-> We have added convenient print (`DBG()`) statements to the unfinished implementations of the `JSONListener` methods. Use these to learn how these methods are used!
+> We have added convenient `DBG()` print statements to the unfinished implementations of the `JSONListener` methods. Use these to better understand the listener methods!
 
 
 ## 2. The In-Memory Model
