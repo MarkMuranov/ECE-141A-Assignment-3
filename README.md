@@ -416,9 +416,8 @@ auto theResult = theQuery.select("'sammy'").get("'username'");
 - Try to use the STL as much as possible! Maybe you can even reuse code from your earlier assignments...
 
 - Plan ahead! Use the design patterns we have talked about in lecture as well as those described in the book.
-  - That being said, if you get stuck, it can be useful to try to the first ideas that come to mind. 
-  - Don't be afraid to try ideas! Commit to Git often so you can undo changes if they turn out to be... not so great. No one makes a perfect design on the first try!
-  - Come by to office hours if you have questions.
+  - Don't be afraid to try new ideas/designs! Commit to Git often so you can undo changes if they turn out to be... not so great. No one makes a perfect design on the first try!
+  - Come by to office hours if you have questions!
 
 - Start early! Even when you're not actively working on the assignment, there is a good chance you will at least be *thinking* about it. You might just surprise yourself with when/where you come up with solutions/ideas for this assignment.
 
