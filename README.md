@@ -398,7 +398,7 @@ auto theQuery = theModel.createQuery();
 auto theResult = theQuery.select("'sammy'").get("'username'");
 ```
 
-#### Notes
+#### Notes:
 
 - When returning lists or objects, you do **not** need to introduce any formatting or spacing. The above examples show how you can format your `get()` outputs. That being said, the `AutoGrader` will remove any white space, so if you do want to add some additional formatting, go for it!
   - For formatting `double` values, we provide a `doubleToString()` function in `Formatting.h`.
@@ -411,11 +411,11 @@ auto theResult = theQuery.select("'sammy'").get("'username'");
 
 - What happens when `sum()` is called on a list without numbers? What about on an object? What if `filter(index > 1)` is called on an object instead of a list? It is up to you to decide what to do for these types of edge/error-cases, but make sure you do consider them. Write some tests for these cases!
 
-#### Tips
+#### Tips:
 
 - Try to use the STL as much as possible! Maybe you can even reuse code from your earlier assignments...
 
-- Plan ahead! Use the design patterns Rick has talked about in lecture.
+- Plan ahead! Use the design patterns we have talked about in lecture as well as those described in the book.
   - That being said, if you get stuck, it can be useful to try to the first ideas that come to mind. 
   - Don't be afraid to try ideas! Commit to Git often so you can undo changes if they turn out to be... not so great. No one makes a perfect design on the first try!
   - Come by to office hours if you have questions.
