@@ -434,7 +434,7 @@ auto theResult = theQuery.select("'sammy'").get("'username'");
 ## 4. Tests
 
 Just like the previous two assignments, we want you to write your own tests.
-There are parts that the AutoGrader does **not** test, for instance, what happens when the `Model` or `ModelNode` copy constructors or assignment operators are called? What do you think should happen?
+There are parts that the `AutoGrader` does **not** test, for instance, what happens when the `Model` or `ModelNode` copy constructors or assignment operators are called? What do you think should happen?
 
 As before, we provide the `Testable` class. You are free to use this or any other testing approach. But do be sure to write tests!
 
