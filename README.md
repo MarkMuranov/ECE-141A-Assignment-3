@@ -366,6 +366,8 @@ If the value is a list/object, be sure to return all the elements (view examples
 
 - `select("'sammy'").get("'username'")`: Should result in `"SammyShark"`.
 
+- `select("'sammy'.'uh_oh'").get("'nope'")`: Should result in `std::nullopt`, as the JSON does not contain these elements.
+
 - `select("'list'").sum()`: Should result in `3350`.
 
 - `select("'list'").filter("index >= 1").sum()`: Should skip the value at index `0` and result in `3250`.
