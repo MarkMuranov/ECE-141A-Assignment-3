@@ -50,5 +50,7 @@ int main(const int argc, const char* argv[]) {
     if (argc > 1)
         return runTest(argc, argv);
 
+    // Add your testing code here!
+
     return 0;
 }
