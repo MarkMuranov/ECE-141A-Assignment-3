@@ -94,7 +94,7 @@ These listener methods will be called by the parser each time a new JSON element
 It is your responsibility to implement these methods correctly. We will go into more detail about `Model` and the `JSONListener` methods in the
 next section.
 
-> We have added convenient `DBG()` print statements to the unfinished implementations of the `JSONListener` methods. Use these to better understand the listener methods!
+> We have added convenient `DBG()` print statements to the unfinished implementations of the `JSONListener` methods. Use them to better understand the listener methods!
 
 
 ## 2. The In-Memory Model
