@@ -5,6 +5,8 @@
 #include "AutoGrader.h"
 
 #include "JSONParser.h"
+#include "Debug.h"
+#include "Formatting.h"
 #include <iostream>
 #include <algorithm>
 #include <sstream>
@@ -208,13 +210,6 @@ namespace ECE141 {
                 return static_cast<CommandType>(i);
 
         return CommandType::invalid;
-    }
-
-    // Rounds a double to nearest hundredth
-    std::string doubleToString(const double aValue) {
-        std::ostringstream stream;
-        stream << std::fixed << std::setprecision(2) << aValue;
-        return stream.str();
     }
 
     std::optional<std::string> CommandProcessor::callCommand(const CommandType aType, const std::string& aParameter) {

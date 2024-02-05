@@ -6,6 +6,7 @@
 //
 
 #include "Model.h"
+#include "Debug.h"
 
 namespace ECE141 {
 

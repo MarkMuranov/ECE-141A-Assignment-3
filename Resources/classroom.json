@@ -22,7 +22,7 @@
     {
       "name": "Brian",
       "age": 16,
-      "grade": 73
+      "grade": [25, 15, 40]
     },
     {
       "name": "Lisa",

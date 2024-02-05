@@ -5,6 +5,7 @@
 #include "JSONParser.h"
 #include "AutoGrader.h"
 #include "Testable.h"
+#include "Debug.h"
 
 // STUDENT: Be sure to update this path if necessary (should point to the repo directory)
 inline std::string getWorkingDirectoryPath() {
