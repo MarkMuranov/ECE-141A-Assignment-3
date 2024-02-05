@@ -60,7 +60,7 @@ Important things to notice:
 - All data is either stored within **objects** (created with curly braces `{}`) or **lists** (created with square brackets `[]`).
 
 - Data within **objects** `{}` are stored using **key-value** pairs.
-  - For instance, `"className"` is the key and `"Math 101"` is the value.
+  - For instance, in the line `"className": "Math 101"`, `"className"` is the key and `"Math 101"` is the value.
   - They **keys** will always be strings, while the **values** can be any of the types described below.
 
 - **Lists** `[]` only store **values** -- there are no keys involved.
